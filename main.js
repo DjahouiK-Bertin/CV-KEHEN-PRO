@@ -53,8 +53,10 @@ const animateProgressBars = () => {
 
   if (sectionPos < screenPos) {
     progressBars.forEach((bar) => {
-      const target = bar.getAttribute('style').match(/--target-width:\s*(.+?);/)[1];
-      bar.style.width = target;
+      const target = bar.style.getPropertyValue('--target-width');
+      if (target) {
+        bar.style.width = target;
+      }
     });
     // Remove listener once animated to avoid re-triggering constantly
     window.removeEventListener('scroll', animateProgressBars);
